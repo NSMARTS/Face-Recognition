@@ -125,7 +125,7 @@ def get_data(dir):
     print('X_train.shape : ',X_train.shape)
     print('X_test.shape' ,X_test.shape)
     # print(Y_train)
-    # print(Y_test)
+    print(Y_test)
     
     return (X_train, Y_train), (X_test, Y_test)
 
