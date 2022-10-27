@@ -69,18 +69,3 @@ if __name__ == "__main__":
 	img = cv2.imread('sample_faces/img3.jpg')
 	gray_scale(img)
 
-	# files = os.listdir('Kface/kface/0')
-	# images = [file for file in files if 'jpg' in file]
-	# for image in images:
-	# 	img = cv2.imread('Kface/kface/0/' + image)
-	# 	detected_faces, face_box, face_coords = detect_faces(img)
-	# 	# print('detected_faces, _, _ : ', detected_faces,face_box, face_coords)
-	
-	# 	if face_box is not None:
-	# 		# cv2.imwrite('Kface/E02_sunglass/detected_faces/' + image, detected_faces)
-	# 		cv2.imwrite('Kface/detect_face/' + image, face_box)
-
-		# cv2.imshow(image, detected_faces)
-		# cv2.waitKey(0)
-		# cv2.destroyAllWindows()
-
