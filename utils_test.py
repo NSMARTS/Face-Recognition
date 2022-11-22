@@ -162,7 +162,7 @@ def get_data_test_set(dir):
 ### pair 개수 줄이기
 def create_pairs(X,Y, num_classes):
     pairs, labels = [], []
-    # print(num_classes)
+    print(num_classes)
     # index of images in X and Y for each class
     class_idx = [np.where(Y==i)[0] for i in range(num_classes)]
     # print(num_classes)
