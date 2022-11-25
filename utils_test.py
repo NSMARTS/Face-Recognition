@@ -174,7 +174,7 @@ def create_pairs(X,Y, num_classes):
     for c in range(num_classes):
         neg_list = list(range(num_classes))
         neg_list.remove(c)
-        # print(neg_list)
+        print(neg_list)
 
         neg_idx = 0
         for n in range(min_images):
