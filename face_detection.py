@@ -1,8 +1,7 @@
 import cv2
 import os 
 
-face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-print(face_cascade)
+face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default copy.xml')
 
 def gray_scale(img):
 	gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -35,7 +34,7 @@ def detect_faces(img, draw_box=True):
 	# detect faces
 	faces = face_cascade.detectMultiScale(grayscale_img, scaleFactor=1.1,
 		minNeighbors=5,
-        minSize=(64, 64),
+        minSize=(128, 128),
         flags=cv2.CASCADE_SCALE_IMAGE)
 	
 	face_box, face_coords = None, []
