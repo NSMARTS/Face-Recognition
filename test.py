@@ -1,3 +1,4 @@
 from tensorflow.python.client import device_lib
-
-print(device_lib.list_local_devices())
+import tensorflow as tf
+tf.__version__
+device_lib.list_local_devices()
