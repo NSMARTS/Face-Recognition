@@ -27,7 +27,8 @@ def euclidean_distance(vectors):
     x = vectors[0]
     y = vectors[1]
 
-    sum_square = tf.math.reduce_sum(tf.math.square(x - y), axis=1, keepdims=True)
+    sum_square = tf.math.reduce_sum(
+        tf.math.square(x - y), axis=1, keepdims=True)
     return tf.math.sqrt(tf.math.maximum(sum_square, tf.keras.backend.epsilon()))
 
 
@@ -68,45 +69,46 @@ def loss(margin=1):
     return contrastive_loss
 
 
-
 def test1(y_true, y_pred):
     return K.mean(y_pred)
 
 
 def get_data(dir):
+    print('get_data====================')
     X_train, Y_train = [], []
     X_test, Y_test = [], []
-    subfolders = sorted([file.path for file in os.scandir(dir) if file.is_dir()])
-    
-    print(subfolders);
-    print(enumerate(subfolders));
+    subfolders = sorted(
+        [file.path for file in os.scandir(dir) if file.is_dir()])
+
+    print(subfolders)
+    print(enumerate(subfolders))
     # foler 순서 : s1->s10->s11...
     for idx, folder in tqdm(enumerate(subfolders)):
         # print(idx)
         # print(folder)
         tmp = 0
         for file in sorted(os.listdir(folder)):
-            
+
             # img = tf.keras.utils.load_img(folder+"/"+file, color_mode='grayscale')
             img = tf.keras.utils.load_img(folder+"/"+file)
             img = cv2.cvtColor(np.float32(img), cv2.COLOR_BGR2GRAY)
-            #https://linda-suuup.tistory.com/88
+            # https://linda-suuup.tistory.com/88
             # img = img.resize((120,120))
-            
+
             # print('original img shape : ',img.shape)
-            img = cv2.resize(img, (106, 106))
+            img = cv2.resize(img, (156, 156))
             # img = cv2.resize(img, (128, 128))
             img = tf.keras.utils.img_to_array(img).astype('float32')/255
-            img = img.reshape(img.shape[0], img.shape[1],1)
+            img = img.reshape(img.shape[0], img.shape[1], 1)
             # img = img.reshape(32,32,1)
             # print(img.shape)
             # print(idx, folder)
-            if idx < 120:
+            if idx < 60:
                 X_train.append(img)
                 Y_train.append(idx)
             else:
                 X_test.append(img)
-                Y_test.append(idx-120)
+                Y_test.append(idx-60)
             tmp = tmp + 1
             # print('---------------------------------- ', tmp)
             # print('resize img.shape : ', img.shape)
@@ -114,36 +116,38 @@ def get_data(dir):
             # if tmp == 40:
             #     tmp = 0
             #     break
-        if idx == 130:
+        if idx == 65:
             break
 
     X_train = np.array(X_train)
     X_test = np.array(X_test)
     Y_train = np.array(Y_train)
     Y_test = np.array(Y_test)
-    
-    print('X_train.shape : ',X_train.shape)
-    print('X_test.shape' ,X_test.shape)
+
+    print('X_train.shape : ', X_train.shape)
+    print('X_test.shape', X_test.shape)
     print(Y_train)
     print(Y_test)
-    
+
     return (X_train, Y_train), (X_test, Y_test)
 
 
 # ********************* 테스트를 위한 테스트 셋, 페어 만들기 *********************
 def get_data_test_set(dir):
+    print('get_data_test_set====================')
     X_test, Y_test = [], []
-    subfolders = sorted([file.path for file in os.scandir(dir) if file.is_dir()])
+    subfolders = sorted(
+        [file.path for file in os.scandir(dir) if file.is_dir()])
     for idx, folder in tqdm(enumerate(subfolders)):
 
         for file in sorted(os.listdir(folder)):
-            
+
             img = tf.keras.utils.load_img(folder+"/"+file)
             img = cv2.cvtColor(np.float32(img), cv2.COLOR_BGR2GRAY)
 
-            img = cv2.resize(img, (106, 106))
+            img = cv2.resize(img, (156, 156))
             img = tf.keras.utils.img_to_array(img).astype('float32')/255
-            img = img.reshape(img.shape[0], img.shape[1],1)
+            img = img.reshape(img.shape[0], img.shape[1], 1)
 
             X_test.append(img)
             Y_test.append(idx)
@@ -159,17 +163,18 @@ def get_data_test_set(dir):
     return X_test, Y_test
 
 
-### pair 개수 줄이기
-def create_pairs(X,Y, num_classes):
+# pair 개수 줄이기
+def create_pairs(X, Y, num_classes):
+    print('create_pairs====================')
     pairs, labels = [], []
     print(num_classes)
     # index of images in X and Y for each class
-    class_idx = [np.where(Y==i)[0] for i in range(num_classes)]
+    class_idx = [np.where(Y == i)[0] for i in range(num_classes)]
     # print(num_classes)
-    print('np.shape(class_idx) : ',np.shape(class_idx))
+    print('np.shape(class_idx) : ', np.shape(class_idx))
     # The minimum number of images across all classes
     min_images = min(len(class_idx[i]) for i in range(num_classes)) - 1
-    print('min_image : ',min_images)
+    print('min_image : ', min_images)
 
     for c in range(num_classes):
         neg_list = list(range(num_classes))
@@ -182,40 +187,41 @@ def create_pairs(X,Y, num_classes):
             cnt = 0
             for i in range(n+1, min_images+1):
                 cnt += 1
-                if(cnt == 5):
+                if(cnt == 13):
                     break
                 img1 = X[class_idx[c][random.randint(0, min_images)]]
                 img2 = X[class_idx[c][random.randint(0, min_images)]]
                 pairs.append((img1, img2))
                 labels.append(0)
-                
-               
-                # select a random class from the negative list. 
+
+                # select a random class from the negative list.
                 # this class will be used to form the negative pair
-                neg_c = random.sample(neg_list,1)[0]
+                neg_c = random.sample(neg_list, 1)[0]
                 # img1 = X[class_idx[c][n]]
                 # img2 = X[class_idx[neg_c][random.sample(range(10), 1)[0]]]
 
                 # 내 image도 골고루 섞이게?
                 img1 = X[class_idx[c][neg_idx]]
                 img2 = X[class_idx[neg_c][random.randint(0, min_images)]]
-                pairs.append((img1,img2))
+                pairs.append((img1, img2))
                 labels.append(1)
-                
+
                 neg_idx = neg_idx+1
                 neg_idx = neg_idx % (min_images+1)
-##################################################################################               
+##################################################################################
     print()
-    print('시험 데이터의 개수 : ',len(pairs))
-    print('정답 데이터의 개수 : ',np.shape(labels))
+    print('시험 데이터의 개수 : ', len(pairs))
+    print('정답 데이터의 개수 : ', np.shape(labels))
     print()
     return np.array(pairs), np.array(labels).astype("float32")
-    
+
+
 """
 ## Visualize pairs and their labels
 """
 
-def visualize(pairs, labels, to_show=6, num_col=3, predictions=None, test=False, main_title="Figure"):
+
+def visualize(pairs, labels, to_show=5, num_col=4, predictions=None, test=False, main_title="Figure"):
     """Creates a plot of pairs and labels, and prediction if it's test dataset.
     Arguments:
         pairs: Numpy Array, of pairs to visualize, having shape
@@ -254,7 +260,7 @@ def visualize(pairs, labels, to_show=6, num_col=3, predictions=None, test=False,
     #  simply set it equal to num_row * num_col
     to_show = num_row * num_col
 
-    # Plot the images    
+    # Plot the images
     fig, axes = plt.subplots(num_row, num_col, figsize=(10, 5))
     for i in range(to_show):
 
@@ -267,7 +273,8 @@ def visualize(pairs, labels, to_show=6, num_col=3, predictions=None, test=False,
         ax.imshow(tf.concat([pairs[i][0], pairs[i][1]], axis=1), cmap="gray")
         ax.set_axis_off()
         if test:
-            ax.set_title("True: {} | Pred: {:.5f}".format(labels[i], predictions[i][0]))
+            ax.set_title("True: {} | Pred: {:.5f}".format(
+                labels[i], predictions[i][0]))
         else:
             ax.set_title("Label: {}".format(labels[i]))
     # if test:
@@ -276,8 +283,6 @@ def visualize(pairs, labels, to_show=6, num_col=3, predictions=None, test=False,
     #     plt.tight_layout(rect=(0, 0, 1.5, 1.5))
     fig.suptitle(main_title)
     plt.show()
-
-
 
 
 def plt_metric(history, metric, title, has_valid=True):
@@ -300,11 +305,13 @@ def plt_metric(history, metric, title, has_valid=True):
     plt.show()
 
 
-
-
 def write_on_frame(frame, text, text_x, text_y):
-    (text_width, text_height) = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX, fontScale=1, thickness=2)[0]
-    box_coords = ((text_x, text_y), (text_x+text_width+20, text_y-text_height-20))
-    cv2.rectangle(frame, box_coords[0], box_coords[1], (255, 255, 255), cv2.FILLED)
-    cv2.putText(frame, text, (text_x, text_y-10), cv2.FONT_HERSHEY_SIMPLEX, fontScale=1, color=(0,0,0), thickness=2)
+    (text_width, text_height) = cv2.getTextSize(
+        text, cv2.FONT_HERSHEY_SIMPLEX, fontScale=1, thickness=2)[0]
+    box_coords = ((text_x, text_y),
+                  (text_x+text_width+20, text_y-text_height-20))
+    cv2.rectangle(frame, box_coords[0],
+                  box_coords[1], (255, 255, 255), cv2.FILLED)
+    cv2.putText(frame, text, (text_x, text_y-10), cv2.FONT_HERSHEY_SIMPLEX,
+                fontScale=1, color=(0, 0, 0), thickness=2)
     return frame
