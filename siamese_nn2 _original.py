@@ -50,7 +50,7 @@ if gpus:
 
 # os.putenv('TF_GPU_ALLOCATOR', 'cuda_malloc_async')
 
-epochs = 50
+epochs = 10
 batch_size = 16
 margin = 1
 

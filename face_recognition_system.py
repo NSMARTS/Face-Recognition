@@ -29,7 +29,7 @@ model = load_model('siamese_nn_156_0523_2.h5', custom_objects={'contrastive_loss
 # prepare the true image obtained during onboard
 true_img = cv2.imread('true_img.png', 0)
 true_img = true_img.astype('float32')/255
-true_img = cv2.resize(true_img, (128, 128))
+true_img = cv2.resize(true_img, (196, 196))
 true_img = true_img.reshape(1, true_img.shape[0], true_img.shape[1], 1)
 
 video_capture = cv2.VideoCapture(0)
@@ -46,7 +46,7 @@ while True:
     if face_img is not None:
         face_img = cv2.cvtColor(face_img, cv2.COLOR_BGR2GRAY)
         face_img = face_img.astype('float32')/255
-        face_img = cv2.resize(face_img, (128, 128))
+        face_img = cv2.resize(face_img, (196, 196))
         face_img = face_img.reshape(1, face_img.shape[0], face_img.shape[1], 1)
         preds.append(1-model.predict([true_img, face_img])[0][0])
         x, y, w, h = face_coords
