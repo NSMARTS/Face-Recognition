@@ -108,10 +108,10 @@ Siamese Model 설정
 
 # model = Sequential(name='Shared_Conv_Network')
 # input_shape = X_train.shape[1:]
-# model.add(Conv2D(filters=64, kernel_size=(3,3), activation='relu', input_shape=input_shape))
+# model.add(Conv2D(filters=64, kernel_size=(6,6), activation='relu', input_shape=input_shape))
 # model.add(MaxPooling2D())
 # model.add(Dropout(0.1))  
-# model.add(Conv2D(filters=64, kernel_size=(3,3), activation='relu'))    
+# model.add(Conv2D(filters=64, kernel_size=(6,6), activation='relu'))    
 # model.add(Dropout(0.1))  
 # model.add(Flatten())
 # model.add(Dense(units=128, activation='sigmoid'))
@@ -123,12 +123,12 @@ Siamese Model 설정
 model = Sequential(name='Shared_Conv_Network')
 input_shape = X_train.shape[1:]
 print(input_shape)
-model.add(Conv2D(filters=32,  padding="same", kernel_size=(3,3), activation='relu', input_shape=input_shape))
+model.add(Conv2D(filters=62,  padding="same", kernel_size=(6,6), activation='relu', input_shape=input_shape))
 model.add(MaxPooling2D())
 model.add(Dropout(0.1))  
-model.add(Conv2D(filters=64,  padding="same", kernel_size=(3,3), activation='relu'))    
+model.add(Conv2D(filters=64,  padding="same", kernel_size=(6,6), activation='relu'))    
 model.add(MaxPooling2D())
-model.add(Conv2D(filters=128,  padding="same", kernel_size=(3,3), activation='relu'))    
+model.add(Conv2D(filters=128,  padding="same", kernel_size=(6,6), activation='relu'))    
 model.add(MaxPooling2D())
 model.add(Dropout(0.1))  
 model.add(Flatten())
@@ -136,29 +136,31 @@ model.add(Dense(units=256, activation='relu'))
 model.add(Dropout(0.2))  
 model.add(Dense(units=10, activation='relu'))
 
+
+
 def get_siamese_model():
     vggface = tf.keras.models.Sequential()
-    vggface.add(tf.keras.layers.Convolution2D(64, (3, 3), activation='relu', padding="SAME", input_shape=(224,224, 3)))
-    vggface.add(tf.keras.layers.Convolution2D(64, (3, 3), activation='relu', padding="SAME"))
+    vggface.add(tf.keras.layers.Convolution2D(64, (6, 6), activation='relu', padding="SAME", input_shape=(224,224, 6)))
+    vggface.add(tf.keras.layers.Convolution2D(64, (6, 6), activation='relu', padding="SAME"))
     vggface.add(tf.keras.layers.MaxPooling2D((2,2), strides=(2,2)))
     
-    vggface.add(tf.keras.layers.Convolution2D(128, (3, 3), activation='relu', padding="SAME"))
-    vggface.add(tf.keras.layers.Convolution2D(128, (3, 3), activation='relu', padding="SAME"))
+    vggface.add(tf.keras.layers.Convolution2D(128, (6, 6), activation='relu', padding="SAME"))
+    vggface.add(tf.keras.layers.Convolution2D(128, (6, 6), activation='relu', padding="SAME"))
     vggface.add(tf.keras.layers.MaxPooling2D((2,2), strides=(2,2)))
     
-    vggface.add(tf.keras.layers.Convolution2D(256, (3, 3), activation='relu', padding="SAME"))
-    vggface.add(tf.keras.layers.Convolution2D(256, (3, 3), activation='relu', padding="SAME"))
-    vggface.add(tf.keras.layers.Convolution2D(256, (3, 3), activation='relu', padding="SAME"))
+    vggface.add(tf.keras.layers.Convolution2D(256, (6, 6), activation='relu', padding="SAME"))
+    vggface.add(tf.keras.layers.Convolution2D(256, (6, 6), activation='relu', padding="SAME"))
+    vggface.add(tf.keras.layers.Convolution2D(256, (6, 6), activation='relu', padding="SAME"))
     vggface.add(tf.keras.layers.MaxPooling2D((2,2), strides=(2,2)))
     
-    vggface.add(tf.keras.layers.Convolution2D(512, (3, 3), activation='relu', padding="SAME"))
-    vggface.add(tf.keras.layers.Convolution2D(512, (3, 3), activation='relu', padding="SAME"))
-    vggface.add(tf.keras.layers.Convolution2D(512, (3, 3), activation='relu', padding="SAME"))
+    vggface.add(tf.keras.layers.Convolution2D(512, (6, 6), activation='relu', padding="SAME"))
+    vggface.add(tf.keras.layers.Convolution2D(512, (6, 6), activation='relu', padding="SAME"))
+    vggface.add(tf.keras.layers.Convolution2D(512, (6, 6), activation='relu', padding="SAME"))
     vggface.add(tf.keras.layers.MaxPooling2D((2,2), strides=(2,2)))
     
-    vggface.add(tf.keras.layers.Convolution2D(512, (3, 3), activation='relu', padding="SAME"))
-    vggface.add(tf.keras.layers.Convolution2D(512, (3, 3), activation='relu', padding="SAME"))
-    vggface.add(tf.keras.layers.Convolution2D(512, (3, 3), activation='relu', padding="SAME"))
+    vggface.add(tf.keras.layers.Convolution2D(512, (6, 6), activation='relu', padding="SAME"))
+    vggface.add(tf.keras.layers.Convolution2D(512, (6, 6), activation='relu', padding="SAME"))
+    vggface.add(tf.keras.layers.Convolution2D(512, (6, 6), activation='relu', padding="SAME"))
     vggface.add(tf.keras.layers.MaxPooling2D((2,2), strides=(2,2)))
 
     vggface.add(tf.keras.layers.Flatten())
@@ -181,10 +183,10 @@ embedding_network = model
 
 
 # input = layers.Input(X_train.shape[1:])
-# x = layers.Conv2D(64, (3, 3), activation="relu")(input)
+# x = layers.Conv2D(64, (6, 6), activation="relu")(input)
 # x = layers.MaxPooling2D()(x)
 # x = layers.Dropout(0.1)(x)
-# x = layers.Conv2D(32, (3, 3), activation="relu")(x)
+# x = layers.Conv2D(62, (6, 6), activation="relu")(x)
 # x = layers.MaxPooling2D()(x)
 # x = layers.Dropout(0.1)(x)
 # x = layers.Flatten()(x)
@@ -192,10 +194,10 @@ embedding_network = model
 
 # input = layers.Input(X_train.shape[1:])
 # # x = layers.BatchNormalization()(input)
-# x = layers.Conv2D(64, (3, 3), activation="relu")(input)
+# x = layers.Conv2D(64, (6, 6), activation="relu")(input)
 # x = layers.MaxPooling2D(pool_size=(2, 2))(x)
 # # x = layers.Dropout(0.1)(x)
-# x = layers.Conv2D(32, (3, 3), activation="relu")(x)
+# x = layers.Conv2D(62, (6, 6), activation="relu")(x)
 # x = layers.MaxPooling2D(pool_size=(2, 2))(x)
 # x = layers.Flatten()(x)
 
@@ -268,4 +270,4 @@ utils_test.plt_metric(history=history.history, metric="loss", title="Constrastiv
 
 
 # Save the model
-model.save('siamese_nn_230427.h5')
+model.save('siamese_nn_260427.h5')
