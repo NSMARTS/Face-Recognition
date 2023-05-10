@@ -148,7 +148,14 @@ def get_data_test_set(dir):
             img = cv2.resize(img, (156, 156))
             img = tf.keras.utils.img_to_array(img).astype('float32')/255
             img = img.reshape(img.shape[0], img.shape[1], 1)
-
+            # print('original img shape : ',img.shape)
+            img = cv2.resize(img, (156, 156))
+            # img = cv2.resize(img, (128, 128))
+            img = tf.keras.utils.img_to_array(img).astype('float32')/255
+            img = img.reshape(img.shape[0], img.shape[1], 1)
+            # img = img.reshape(32,32,1)
+            # print(img.shape)
+            # print(idx, folder)
             X_test.append(img)
             Y_test.append(idx)
 
@@ -191,6 +198,14 @@ def create_pairs(X, Y, num_classes):
                     break
                 img1 = X[class_idx[c][random.randint(0, min_images)]]
                 img2 = X[class_idx[c][random.randint(0, min_images)]]
+                # print('original img shape : ',img.shape)
+                img = cv2.resize(img, (156, 156))
+                # img = cv2.resize(img, (128, 128))
+                img = tf.keras.utils.img_to_array(img).astype('float32')/255
+                img = img.reshape(img.shape[0], img.shape[1], 1)
+                # img = img.reshape(32,32,1)
+                # print(img.shape)
+                # print(idx, folder)
                 pairs.append((img1, img2))
                 labels.append(0)
 
@@ -295,6 +310,7 @@ def plt_metric(history, metric, title, has_valid=True):
     Returns:
         None.
     """
+    
     plt.plot(history[metric])
     if has_valid:
         plt.plot(history["val_" + metric])
