@@ -6,15 +6,15 @@ import numpy as np
 import tensorflow as tf
 from keras.models import load_model
 
-# os.environ["CUDA_VISIBLE_DEVICES"]="0"
-# gpus = tf.config.experimental.list_physical_devices('GPU')
-# if gpus:
-#     try:
-#         tf.config.experimental.set_memory_growth(gpus[0], True)
-#     except RuntimeError as e:
-#         print(e)
+os.environ["CUDA_VISIBLE_DEVICES"]="0"
+gpus = tf.config.experimental.list_physical_devices('GPU')
+if gpus:
+    try:
+        tf.config.experimental.set_memory_growth(gpus[0], True)
+    except RuntimeError as e:
+        print(e)
 
-# os.putenv('TF_GPU_ALLOCATOR', 'cuda_malloc_async')
+os.putenv('TF_GPU_ALLOCATOR', 'cuda_malloc_async')
 
 
 ## 모델이 경로에 있는지 확인
