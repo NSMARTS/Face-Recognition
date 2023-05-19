@@ -32,10 +32,10 @@ def euclidean_distance(vectors):
     return tf.math.sqrt(tf.math.maximum(sum_square, tf.keras.backend.epsilon()))
 
 
-def euclidean_distance2(vectors):
-    vector1, vector2 = vectors
-    sum_square = K.sum(K.square(vector1 - vector2), axis=1, keepdims=True)
-    return K.sqrt(K.maximum(sum_square, K.epsilon()))
+# def euclidean_distance2(vectors):
+#     vector1, vector2 = vectors
+#     sum_square = K.sum(K.square(vector1 - vector2), axis=1, keepdims=True)
+#     return K.sqrt(K.maximum(sum_square, K.epsilon()))
 
 
 def loss(margin=1):
