@@ -149,28 +149,23 @@ model.add(Dropout(0.2))
 model.add(Dense(units=128, activation='relu'))
 model.add(Dense(units=10, activation='relu'))
 
+model.add(Conv2D(filters=32,  padding="same", kernel_size=(
+    3, 3), activation='relu', input_shape=input_shape))
+model.add(MaxPooling2D())
+model.add(Dropout(0.2))
+model.add(Conv2D(filters=64,  padding="same",
+          kernel_size=(3, 3), activation='relu'))
+model.add(MaxPooling2D())
+model.add(Conv2D(filters=128,  padding="same",
+          kernel_size=(3, 3), activation='relu'))
+model.add(MaxPooling2D())
+model.add(Dropout(0.2))
+model.add(Flatten())
+model.add(Dense(units=256, activation='relu'))
+model.add(Dropout(0.2))
+model.add(Dense(units=128, activation='relu'))
+model.add(Dense(units=1, activation='relu'))
 embedding_network = model
-
-# model = Sequential(name='Shared_Conv_Network')
-# input_shape = X_train.shape[1:]
-# print(input_shape)
-# model.add(Conv2D(filters=32,  padding="same", kernel_size=(
-#     3, 3), activation='relu', input_shape=input_shape))
-# model.add(MaxPooling2D())
-# model.add(Dropout(0.2))
-# model.add(Conv2D(filters=64,  padding="same",
-#           kernel_size=(3, 3), activation='relu'))
-# model.add(MaxPooling2D())
-# model.add(Conv2D(filters=128,  padding="same",
-#           kernel_size=(3, 3), activation='relu'))
-# model.add(MaxPooling2D())
-# model.add(Dropout(0.2))
-# model.add(Flatten())
-# model.add(Dense(units=256, activation='relu'))
-# model.add(Dropout(0.2))
-# model.add(Dense(units=128, activation='relu'))
-# model.add(Dense(units=1, activation='relu'))
-# embedding_network = model
 
 ############################
 
