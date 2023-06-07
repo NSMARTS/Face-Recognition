@@ -11,14 +11,9 @@ def gray_scale(img):
 		scaleFactor=1.1,
 		minNeighbors=5,
         minSize=(30, 30))
-	print(faces)
-	print(faces[0])
-	print(faces[0][1])
+
 	x, y, w, h = faces[0]
-	print(x)
-	print(y)
-	print(w)
-	print(h)
+
 	detect_face_img = cv2.rectangle(img, (x,y), (x+w, y+h), (0,255,0), 3)
 
 
@@ -49,18 +44,6 @@ def detect_faces(img, draw_box=True):
 	# print('face_coords : ',face_coords)
 	return img, face_box, face_coords
 
-# # 원본
-# if __name__ == "__main__":
-# 	files = os.listdir('sample_faces')
-# 	images = [file for file in files if 'jpg' in file]
-# 	for image in images:
-# 		img = cv2.imread('sample_faces/' + image)
-# 		detected_faces, _, _ = detect_faces(img)
-# 		cv2.imwrite('sample_faces/detected_faces/' + image, detected_faces)
-  
-# 		cv2.imshow(image, detected_faces)
-# 		cv2.waitKey(0)
-# 		cv2.destroyAllWindows()
 
 # K face
 if __name__ == "__main__":
