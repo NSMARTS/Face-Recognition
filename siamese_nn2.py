@@ -140,26 +140,34 @@ embedding_network = model
 
 
 
-# input = layers.Input(X_train.shape[1:])
-# x = layers.Conv2D(64, (3, 3), activation="relu")(input)
-# x = layers.MaxPooling2D()(x)
-# x = layers.Dropout(0.1)(x)
-# x = layers.Conv2D(32, (3, 3), activation="relu")(x)
-# x = layers.MaxPooling2D()(x)
-# x = layers.Dropout(0.1)(x)
-# x = layers.Flatten()(x)
-# x = layers.Dense(128, activation="sigmoid")(x)
+input = layers.Input(X_train.shape[1:])
+x = layers.Conv2D(64, (3, 3), activation="relu")(input)
+x = layers.MaxPooling2D()(x)
+x = layers.Dropout(0.1)(x)
+x = layers.Conv2D(32, (3, 3), activation="relu")(x)
+x = layers.MaxPooling2D()(x)
+x = layers.Dropout(0.1)(x)
+x = layers.Flatten()(x)
+x = layers.Dense(128, activation="sigmoid")(x)
 
-# input = layers.Input(X_train.shape[1:])
-# # x = layers.BatchNormalization()(input)
-# x = layers.Conv2D(64, (3, 3), activation="relu")(input)
-# x = layers.MaxPooling2D(pool_size=(2, 2))(x)
-# # x = layers.Dropout(0.1)(x)
-# x = layers.Conv2D(32, (3, 3), activation="relu")(x)
-# x = layers.MaxPooling2D(pool_size=(2, 2))(x)
-# x = layers.Flatten()(x)
+input = layers.Input(X_train.shape[1:])
+# x = layers.BatchNormalization()(input)
+x = layers.Conv2D(64, (3, 3), activation="relu")(input)
+x = layers.MaxPooling2D(pool_size=(2, 2))(x)
+# x = layers.Dropout(0.1)(x)
+x = layers.Conv2D(32, (3, 3), activation="relu")(x)
+x = layers.MaxPooling2D(pool_size=(2, 2))(x)
+x = layers.Flatten()(x)
 
-# # x = layers.BatchNormalization()(x)
+input = layers.Input(X_train.shape[1:])
+# x = layers.BatchNormalization()(input)
+x = layers.Conv2D(64, (3, 3), activation="relu")(input)
+x = layers.MaxPooling2D(pool_size=(2, 2))(x)
+# x = layers.Dropout(0.1)(x)
+x = layers.Conv2D(32, (3, 3), activation="relu")(x)
+x = layers.MaxPooling2D(pool_size=(2, 2))(x)
+x = layers.Flatten()(x)
+# x = layers.BatchNormalization()(x)
 # x = layers.Dense(128, activation="sigmoid")(x)
 
 # embedding_network = keras.Model(input, x)
@@ -217,14 +225,14 @@ utils_test.plt_metric(history=history.history, metric="loss", title="Constrastiv
 """
 ## Evaluate the model
 """
-# results = model.evaluate([test_pairs[:, 0], test_pairs[:, 1]], test_labels)
-# print("test loss, test acc:", results)
+results = model.evaluate([test_pairs[:, 0], test_pairs[:, 1]], test_labels)
+print("test loss, test acc:", results)
 
 """
 ## Visualize the predictions
 """
-# predictions = model.predict([test_pairs[:, 0], test_pairs[:, 1]])
-# utils_test.visualize(test_pairs, test_labels, to_show=12, predictions=predictions, test=True, main_title = "predictions")
+predictions = model.predict([test_pairs[:, 0], test_pairs[:, 1]])
+utils_test.visualize(test_pairs, test_labels, to_show=12, predictions=predictions, test=True, main_title = "predictions")
 
 
 # Save the model
