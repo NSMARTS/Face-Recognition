@@ -41,9 +41,9 @@ def detect_faces(img, draw_box=True):
 
 	for (x, y, w, h) in faces:
 		if draw_box:
-			cv2.rectangle(img, (x-20, y-20), (x+w+20, y+h+20), (0, 255, 0), 5)
-		face_box = img[y-20:y+h+20, x-20:x+w+20]
-		face_coords = [x-20,y-20,w+20,h+20]
+			cv2.rectangle(img, (x-35, y-35), (x+w+35, y+h+35), (0, 255, 0), 5)
+		face_box = img[y-35:y+h+35, x-35:x+w+35]
+		face_coords = [x-35,y-35,w+35,h+35]
 	# print('img : ', img)
 	# print('face_box : ',face_box)
 	# print('face_coords : ',face_coords)
