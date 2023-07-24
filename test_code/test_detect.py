@@ -53,6 +53,41 @@ base64_img = "data:image/jpeg;base64," + (base64_img.decode('utf-8'))
 # img_base64 = bytes("data:image/jpeg;base64,", encoding='utf-8') + base64_img
 # base64_img
 # print(base64_img)
+def write_on_frame(frame, text, text_x, text_y):
+    (text_width, text_height) = cv2.getTextSize(
+        text, cv2.FONT_HERSHEY_SIMPLEX, fontScale=1, thickness=2)[0]
+    box_coords = ((text_x, text_y),
+                  (text_x+text_width+20, text_y-text_height-20))
+    cv2.rectangle(frame, box_coords[0],
+                  box_coords[1], (255, 255, 255), cv2.FILLED)
+    cv2.putText(frame, text, (text_x, text_y-10), cv2.FONT_HERSHEY_SIMPLEX,
+                fontScale=1, color=(0, 0, 0), thickness=2)
+    return frame
+def data_type_convert(image):
+    # print('data_type_convert =================================')
+    # print('before resize image.shape : ', image.shape)
+    gray = cv2.resize(image, (156, 156))
+    # gray = img[..., :3]
+    # gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    # print('after resize image.shape : ', gray.shape)
+    cv2.imwrite('client_face.png', gray)
+    source = gray.reshape(1, gray.shape[0], gray.shape[1], 1)
 
+    # print('===================================================')
+    return source
+
+def convert_base64_np(base64Img):
+    # print('convert base64 np ==================================')
+    imgdata = base64.b64decode(base64Img)
+    dataBytesIO = io.BytesIO(imgdata)
+    image = Image.open(dataBytesIO)
+
+    source = remove(image)  # 배경제거
+    source = cv2.cvtColor(np.array(source), cv2.COLOR_BGR2GRAY)
+
+    cv2.imwrite('convert_base64_np.jpg', source)
+    # print('source.shape : ', source.shape)
+    # print('=====================================================')
+    return source
 sys.stdout.write(base64_img)
 sys.stdout.flush()
