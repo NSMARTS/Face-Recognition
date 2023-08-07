@@ -148,6 +148,7 @@ model.add(Dense(units=256, activation='relu'))
 model.add(Dropout(0.2))
 model.add(Dense(units=128, activation='relu'))
 model.add(Dense(units=10, activation='relu'))
+model.add(Dense(units=5, activation='relu'))
 
 embedding_network = model
 
@@ -230,19 +231,19 @@ model.summary()
 # 안씀
 # hdf5 포맷 사용해서 변화
 # 대용량 데이터를 사용하기 위함
-with h5py.File('data.hdf5', 'w') as f:
-    f.create_dataset('x_train_0', data = training_pairs[:, 0])
-    f.create_dataset('x_train_1', data = training_pairs[:, 1])
-    f.create_dataset('labels', data = training_labels)
+# with h5py.File('data.hdf5', 'w') as f:
+#     f.create_dataset('x_train_0', data = training_pairs[:, 0])
+#     f.create_dataset('x_train_1', data = training_pairs[:, 1])
+#     f.create_dataset('labels', data = training_labels)
 
-with h5py.File('data.hdf5', 'r') as f:
-    x_train_0 = f['x_train_0'][:]
-    x_train_1 = f['x_train_1'][:]
-    labels = f['labels'][:]
+# # with h5py.File('data.hdf5', 'r') as f:
+# #     x_train_0 = f['x_train_0'][:]
+# #     x_train_1 = f['x_train_1'][:]
+# #     labels = f['labels'][:]
 
-x_train_0 = HDF5Matrix('data.hdf5', 'x_train_0')
-x_train_1 = HDF5Matrix('data.hdf5', 'x_train_1')
-labels = HDF5Matrix('data.hdf5', 'labels')
+# x_train_0 = HDF5Matrix('data.hdf5', 'x_train_0')
+# x_train_1 = HDF5Matrix('data.hdf5', 'x_train_1')
+# labels = HDF5Matrix('data.hdf5', 'labels')
 ########################################################
 
 
