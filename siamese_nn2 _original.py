@@ -216,8 +216,8 @@ normal_layer = tf.keras.layers.BatchNormalization()(merge_layer)
 output_layer = layers.Dense(1, activation="sigmoid")(normal_layer)
 model = keras.Model(inputs=[input_1, input_2], outputs=output_layer)
 
-adam = optimizers.Adam(lr=0.0005)
-# adam = optimizers.adam_v2(lr=0.00005)
+# adam = optimizers.Adam(lr=0.00005)
+adam = optimizers.adam_v2(lr=0.00005)
 
 # opt = tf.keras.optimizers.Adam(learning_rate=0.0005, beta_1=0.5)
 opt = tf.keras.optimizers.Adam(learning_rate=0.0005, beta_1=0.5)
