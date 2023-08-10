@@ -50,8 +50,8 @@ if gpus:
 
 # os.putenv('TF_GPU_ALLOCATOR', 'cuda_malloc_async')
 
-epochs = 10
-batch_size = 16
+epochs = 50
+batch_size = 32
 margin = 1
 
 faces_dir = './kface/'
@@ -128,18 +128,18 @@ Siamese Model 설정
 model = Sequential(name='Shared_Conv_Network')
 input_shape = X_train.shape[1:]
 print(input_shape)
-model.add(Conv2D(filters=16,  padding="same", kernel_size=(
-    3, 3), activation='relu', input_shape=input_shape))
-model.add(MaxPooling2D())
-# model.add(Dropout(0.2))
 model.add(Conv2D(filters=32,  padding="same", kernel_size=(
     3, 3), activation='relu', input_shape=input_shape))
 model.add(MaxPooling2D())
+# model.add(Dropout(0.2))
+model.add(Conv2D(filters=64,  padding="same", kernel_size=(
+    3, 3), activation='relu', input_shape=input_shape))
+model.add(MaxPooling2D())
 model.add(Dropout(0.2))
-model.add(Conv2D(filters=64,  padding="same",
+model.add(Conv2D(filters=128,  padding="same",
           kernel_size=(3, 3), activation='relu'))
 model.add(MaxPooling2D())
-model.add(Conv2D(filters=128,  padding="same",
+model.add(Conv2D(filters=256,  padding="same",
           kernel_size=(3, 3), activation='relu'))
 model.add(MaxPooling2D())
 model.add(Dropout(0.2))
@@ -148,7 +148,6 @@ model.add(Dense(units=256, activation='relu'))
 model.add(Dropout(0.2))
 model.add(Dense(units=128, activation='relu'))
 model.add(Dense(units=10, activation='relu'))
-model.add(Dense(units=5, activation='relu'))
 
 embedding_network = model
 
