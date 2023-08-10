@@ -50,8 +50,8 @@ if gpus:
 
 # os.putenv('TF_GPU_ALLOCATOR', 'cuda_malloc_async')
 
-epochs = 50
-batch_size = 32
+epochs = 10
+batch_size = 16
 margin = 1
 
 faces_dir = './kface/'
@@ -128,18 +128,18 @@ Siamese Model 설정
 model = Sequential(name='Shared_Conv_Network')
 input_shape = X_train.shape[1:]
 print(input_shape)
-model.add(Conv2D(filters=32,  padding="same", kernel_size=(
+model.add(Conv2D(filters=16,  padding="same", kernel_size=(
     3, 3), activation='relu', input_shape=input_shape))
 model.add(MaxPooling2D())
 # model.add(Dropout(0.2))
-model.add(Conv2D(filters=64,  padding="same", kernel_size=(
+model.add(Conv2D(filters=32,  padding="same", kernel_size=(
     3, 3), activation='relu', input_shape=input_shape))
 model.add(MaxPooling2D())
 model.add(Dropout(0.2))
-model.add(Conv2D(filters=128,  padding="same",
+model.add(Conv2D(filters=64,  padding="same",
           kernel_size=(3, 3), activation='relu'))
 model.add(MaxPooling2D())
-model.add(Conv2D(filters=256,  padding="same",
+model.add(Conv2D(filters=128,  padding="same",
           kernel_size=(3, 3), activation='relu'))
 model.add(MaxPooling2D())
 model.add(Dropout(0.2))
@@ -216,7 +216,7 @@ normal_layer = tf.keras.layers.BatchNormalization()(merge_layer)
 output_layer = layers.Dense(1, activation="sigmoid")(normal_layer)
 model = keras.Model(inputs=[input_1, input_2], outputs=output_layer)
 
-adam = optimizers.Adam(lr=0.00005)
+adam = optimizers.Adam(lr=0.0005)
 # adam = optimizers.adam_v2(lr=0.00005)
 
 # opt = tf.keras.optimizers.Adam(learning_rate=0.0005, beta_1=0.5)
