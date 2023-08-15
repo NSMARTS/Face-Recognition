@@ -62,15 +62,15 @@ faces_dir = './kface/'
 (X_train, Y_train), (X_test, Y_test) = utils_test.get_data(faces_dir)
 
 
-print(X_train.shape)
-print(X_train[0])
+# print(X_train.shape)
+# print(X_train[0])
 
-image = X_test[0]
-# plot the sample
-fig = plt.figure
-plt.imshow(image, cmap='gray')
-plt.show()
-exit(1)
+# image = X_test[0]
+# # plot the sample
+# fig = plt.figure
+# plt.imshow(image, cmap='gray')
+# plt.show()
+# exit(1)
 
 
 # create Training Pairs
@@ -95,14 +95,14 @@ test_pairs, test_labels = utils_test.create_pairs(
 이미지 pair 보기
 """
 # Inspect training pairs
-utils_test.visualize(training_pairs[:-1], training_labels[:-1], to_show=12, num_col=4, main_title='Training pairs sample')
+# utils_test.visualize(training_pairs[:-1], training_labels[:-1], to_show=12, num_col=4, main_title='Training pairs sample')
 
 
-# Inspect validation pairs
-utils2.visualize(pairs_val[:-1], labels_val[:-1], to_show=12, num_col=4, 'validation pairs sample')
+# # Inspect validation pairs
+# utils2.visualize(pairs_val[:-1], labels_val[:-1], to_show=12, num_col=4, 'validation pairs sample')
 
 # Inspect test pairs
-utils2.visualize(test_pairs[:-1], test_labels[:-1], to_show=12, num_col=4, main_title='Test pairs sample')
+# utils2.visualize(test_pairs[:-1], test_labels[:-1], to_show=12, num_col=4, main_title='Test pairs sample')
 
 '''
 
