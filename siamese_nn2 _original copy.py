@@ -111,16 +111,29 @@ Siamese Model 설정
 '''
 
 
-# model = Sequential(name='Shared_Conv_Network')
-# input_shape = X_train.shape[1:]
-# model.add(Conv2D(filters=64, kernel_size=(3,3), activation='relu', input_shape=input_shape))
-# model.add(MaxPooling2D())
-# model.add(Dropout(0.1))
-# model.add(Conv2D(filters=64, kernel_size=(3,3), activation='relu'))
-# model.add(Dropout(0.1))
-# model.add(Flatten())
-# model.add(Dense(units=128, activation='sigmoid'))
-
+model = Sequential(name='Shared_Conv_Network')
+input_shape = X_train.shape[1:]
+model.add(Conv2D(filters=64, kernel_size=(3,3), activation='relu', input_shape=input_shape))
+model.add(MaxPooling2D())
+model.add(Dropout(0.1))
+model.add(Conv2D(filters=64, kernel_size=(3,3), activation='relu'))
+model.add(Dropout(0.1))
+model.add(Flatten())
+model.add(Dense(units=128, activation='sigmoid'))
+model.add(Conv2D(filters=64, kernel_size=(3,3), activation='relu', input_shape=input_shape))
+model.add(MaxPooling2D())
+model.add(Dropout(0.1))
+model.add(Conv2D(filters=64, kernel_size=(3,3), activation='relu'))
+model.add(Dropout(0.1))
+model.add(Flatten())
+model.add(Dense(units=128, activation='sigmoid'))
+model.add(Conv2D(filters=64, kernel_size=(3,3), activation='relu', input_shape=input_shape))
+model.add(MaxPooling2D())
+model.add(Dropout(0.1))
+model.add(Conv2D(filters=64, kernel_size=(3,3), activation='relu'))
+model.add(Dropout(0.1))
+model.add(Flatten())
+model.add(Dense(units=128, activation='sigmoid'))
 # embedding_network = model
 
 ##############################################################################################################################################
