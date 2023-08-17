@@ -50,8 +50,8 @@ if gpus:
 
 # os.putenv('TF_GPU_ALLOCATOR', 'cuda_malloc_async')
 
-epochs = 10
-batch_size = 16
+epochs = 1000
+batch_size = 64
 margin = 1
 
 faces_dir = './kface/'
