@@ -270,9 +270,9 @@ class SiameseGenerator(keras.utils.Sequence):
 
     def __getitem__(self, index):
         batch_pairs = self.pairs[index *
-                                 self.batch_size: (index + 1) * self.batch_size]
+                                 self.batch_size: (index) * self.batch_size]
         batch_labels = self.labels[index *
-                                   self.batch_size: (index + 1) * self.batch_size]
+                                   self.batch_size: (index) * self.batch_size]
 
         # 두 개의 이미지를 나누기
         batch_x1 = batch_pairs[:, 0]
