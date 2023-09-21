@@ -68,23 +68,3 @@ FN : 동일 인물페어를 다른 인물이라고 판별한 수
 # 모델 예측 시각화
 predictions = model.predict([test_pairs[:, 0], test_pairs[:, 1]])
 utils_test.visualize(test_pairs, test_labels, to_show=10, predictions=predictions, test=True, main_title = "predictions")
-
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-
-# Load the data
-df = pd.read_csv('data.csv')
-
-# Split the data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(df.drop('target', axis=1), df['target'], test_size=0.25, random_state=42)
-
-# Create the model
-model = LogisticRegression()
-
-# Train the model
-model.fit(X_train, y_train)
-
-# Evaluate the model
-y_pred = model.predict(X_test)
-print(classification_report(y_test, y_pred))
