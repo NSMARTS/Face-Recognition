@@ -1,7 +1,14 @@
 # Face-Recognition
 
+이 프로젝트는 고급 얼굴 인식 및 탐지 기능을 제공하는 AI 기반 시스템입니다. 여러 구성 요소를 통해 얼굴 인식 과정을 최적화하고, 사용자 친화적인 인터페이스를 제공합니다.
 
 model dir path change
+
+## 주요 기능
+얼굴 인식: 사용자가 업로드한 사진을 기반으로 얼굴을 인식합니다.
+얼굴 탐지: 실시간으로 얼굴을 탐지하고 분석합니다.
+데이터 처리: 대규모 데이터셋을 효율적으로 처리하기 위한 분산 데이터 관리 시스템을 포함합니다.
+
 
 - data.h5 
     - AI 모델링을 할때 데이터를 분산으로 처리해서 스펙이 좀 부족해도 커버할 수 있는 방법 [blog to link](https://nuxlear.tistory.com/4)
@@ -25,3 +32,9 @@ model dir path change
 - utils_test 
     - 데이터 페어 등 모델에 필요한 대부분의 함수가 여기 있음 -> 수정 후 브렌치 병합
     - [ Contains most of the functions needed for the model, such as data pairs. After modification, ready for branch merge. ]
+
+## HOW
+
+```
+python face_recognition_system.py
+```
