@@ -27,9 +27,17 @@ model = load_model('siamese_nn_156_0523_2.h5', custom_objects={'contrastive_loss
     margin=1), 'euclidean_distance2': utils_test.euclidean_distance})
 
 # prepare the true image obtained during onboard
+# true_img = cv2.imread('true_img.png', 0)
+# true_img = true_img.astype('float32')/255
+# true_img = cv2.resize(true_img, (196, 196))
+# true_img = true_img.reshape(1, true_img.shape[0], true_img.shape[1], 1)
+
+# video_capture = cv2.VideoCapture(0)
+# preds = collections.deque(maxlen=15)
+
 true_img = cv2.imread('true_img.png', 0)
-true_img = true_img.astype('float32')/255
-true_img = cv2.resize(true_img, (196, 196))
+true_img = true_img.astype('float32')/512
+true_img = cv2.resize(true_img, (300, 300))
 true_img = true_img.reshape(1, true_img.shape[0], true_img.shape[1], 1)
 
 video_capture = cv2.VideoCapture(0)
