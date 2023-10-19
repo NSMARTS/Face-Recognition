@@ -193,8 +193,8 @@ max_epochs = 630
 weights = dict(
     filepath='torchvision://resnet50',
     prefix='backbone')
-# optimizer = dict(filepath='workdir/retinanet_mini/epoch_3_optim.pth')
-# meta = dict(filepath='workdir/retinanet_mini/epoch_3_meta.pth')
+optimizer = dict(filepath='workdir/retinanet_mini/epoch_3_optim.pth')
+meta = dict(filepath='workdir/retinanet_mini/epoch_3_meta.pth')
 
 # 7. misc
 seed = 1234
