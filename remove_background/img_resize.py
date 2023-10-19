@@ -7,8 +7,8 @@ img = cv2.imread("myFace1.png")
 
 print("before : ", img.shape)
 
-# resized_img = cv2.resize(img, (106,106,2), interpolation=cv2.INTER_AREA)
-resized_img = cv2.resize(img, (256,256,2), interpolation=cv2.INTER_AREA)
+resized_img = cv2.resize(img, (106,106,2), interpolation=cv2.INTER_AREA)
+
 print("after : ", img.shape)
 
 ##############################################################

@@ -78,7 +78,7 @@ model = dict(
         dict(
             typename='FPN',
             in_channels=[256, 512, 1024, 2048],
-            out_channels=512,
+            out_channels=256,
             start_level=0,
             add_extra_convs='on_input',
             num_outs=6,
@@ -86,7 +86,7 @@ model = dict(
             upsample_cfg=dict(mode='bilinear')),
         dict(
             typename='Inception',
-            in_channel=512,
+            in_channel=256,
             num_levels=6,
             norm_cfg=dict(typename='BN'),
             share=True)
@@ -95,9 +95,9 @@ model = dict(
         typename='IoUAwareRetinaHead',
         num_classes=num_classes,
         num_anchors=num_anchors,
-        in_channels=512,
+        in_channels=256,
         stacked_convs=4,
-        feat_channels=512,
+        feat_channels=256,
         norm_cfg=dict(typename='BN'),
         use_sigmoid=use_sigmoid))
 
@@ -194,7 +194,7 @@ weights = dict(
     filepath='torchvision://resnet50',
     prefix='backbone')
 # optimizer = dict(filepath='workdir/retinanet_mini/epoch_3_optim.pth')
-meta = dict(filepath='workdir/retinanet_mini/epoch_3_meta.pth')
+# meta = dict(filepath='workdir/retinanet_mini/epoch_3_meta.pth')
 
 # 7. misc
 seed = 1234
