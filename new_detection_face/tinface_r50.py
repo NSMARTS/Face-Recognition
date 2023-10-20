@@ -54,3 +54,49 @@ data = dict(
                 ])
         ]),
 )
+
+# 2. model
+num_classes = 1
+strides = [4, 8, 16, 32, 64, 128]
+use_sigmoid = True
+scales_per_octave = 3
+ratios = [1.3]
+num_anchors = scales_per_octave * len(ratios)
+
+model = dict(
+    typename='SingleStageDetector',
+    backbone=dict(
+        typename='ResNet',
+        depth=50,
+        num_stages=4,
+        out_indices=(0, 1, 2, 3),
+        norm_cfg=dict(typename='BN'),
+        norm_eval=False,
+        dcn=None,
+        style='pytorch'),
+    neck=[
+        dict(
+            typename='FPN',
+            in_channels=[256, 512, 1024, 2048],
+            out_channels=256,
+            start_level=0,
+            add_extra_convs='on_input',
+            num_outs=6,
+            norm_cfg=dict(typename='BN'),
+            upsample_cfg=dict(mode='bilinear')),
+        dict(
+            typename='Inception',
+            in_channel=256,
+            num_levels=6,
+            norm_cfg=dict(typename='BN'),
+            share=True)
+    ],
+    head=dict(
+        typename='IoUAwareRetinaHead',
+        num_classes=num_classes,
+        num_anchors=num_anchors,
+        in_channels=256,
+        stacked_convs=4,
+        feat_channels=256,
+        norm_cfg=dict(typename='BN'),
+        use_sigmoid=use_sigmoid))
