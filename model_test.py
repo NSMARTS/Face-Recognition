@@ -4,14 +4,14 @@ import numpy as np
 
 faces_dir = './kface/'
 # faces_dir = 'Kface\detect_data/'
-# faces_dir = 'att_faces/'
+faces_dir = 'att_faces/'
 
 # Import Training and Testing Data
 (X_train, Y_train), (X_test, Y_test) = utils_test.get_data(faces_dir)
 
 # create Training Pairs
 num_classes = len(np.unique(Y_train))
-# training_pairs, training_labels = utils2.create_pairs(X_train, Y_train, num_classes=num_classes)
+training_pairs, training_labels = utils2.create_pairs(X_train, Y_train, num_classes=num_classes)
 
 print('num_classes : ', num_classes)
 print('X_train : ', X_train.shape)
