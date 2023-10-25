@@ -100,3 +100,87 @@ model = dict(
         feat_channels=256,
         norm_cfg=dict(typename='BN'),
         use_sigmoid=use_sigmoid))
+
+# 3. engines
+meshgrid = dict(
+    typename='BBoxAnchorMeshGrid',
+    strides=strides,
+    base_anchor=dict(
+        typename='BBoxBaseAnchor',
+        octave_base_scale=2**(4 / 3),
+        scales_per_octave=scales_per_octave,
+        ratios=ratios,
+        base_sizes=strides))
+
+bbox_coder = dict(
+    typename='DeltaXYWHBBoxCoder',
+    target_means=[.0, .0, .0, .0],
+    target_stds=[0.1, 0.1, 0.2, 0.2])
+
+train_engine = dict(
+    typename='TrainEngine',
+    model=model,
+    criterion=dict(
+        typename='IoUBBoxAnchorCriterion',
+        num_classes=num_classes,
+        meshgrid=meshgrid,
+        bbox_coder=bbox_coder,
+        loss_cls=dict(
+            typename='FocalLoss',
+            use_sigmoid=use_sigmoid,
+            gamma=2.0,
+            alpha=0.25,
+            loss_weight=1.0),
+        reg_decoded_bbox=True,
+        loss_bbox=dict(typename='DIoULoss', loss_weight=2.0),
+        loss_iou=dict(
+            typename='CrossEntropyLoss',
+            use_sigmoid=True,
+            loss_weight=1.0),
+        train_cfg=dict(
+            assigner=dict(
+                typename='MaxIoUAssigner',
+                pos_iou_thr=0.35,
+                neg_iou_thr=0.35,
+                min_pos_iou=0.35,
+                ignore_iof_thr=-1,
+                gpu_assign_thr=100),
+            allowed_border=-1,
+            pos_weight=-1,
+            debug=False)),
+    optimizer=dict(typename='SGD', lr=3.75e-3, momentum=0.9, weight_decay=5e-4)) # 3 GPUS
+
+## 3.2 val engine
+val_engine = dict(
+    typename='ValEngine',
+    model=model,
+    meshgrid=meshgrid,
+    converter=dict(
+        typename='IoUBBoxAnchorConverter',
+        num_classes=num_classes,
+        bbox_coder=bbox_coder,
+        nms_pre=-1,
+        use_sigmoid=use_sigmoid),
+    num_classes=num_classes,
+    test_cfg=dict(
+        min_bbox_size=0,
+        score_thr=0.01,
+        nms=dict(typename='lb_nms', iou_thr=0.45),
+        max_per_img=-1),
+    use_sigmoid=use_sigmoid,
+    eval_metric=None)
+
+hooks = [
+    dict(typename='OptimizerHook'),
+    dict(
+        typename='CosineRestartLrSchedulerHook',
+        periods=[30] * 21,
+        restart_weights=[1] * 21,
+        warmup='linear',
+        warmup_iters=500,
+        warmup_ratio=1e-1,
+        min_lr_ratio=1e-2),
+    dict(typename='EvalHook'),
+    dict(typename='SnapshotHook', interval=1),
+    dict(typename='LoggerHook', interval=100)
+]
