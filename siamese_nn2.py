@@ -61,11 +61,11 @@ faces_dir = './kface/'
 # print(X_train.shape)
 # print(X_train[0])
 
-image = X_test[0]
-# plot the sample
-fig = plt.figure
-plt.imshow(image, cmap='gray')
-plt.show()
+# image = X_test[0]
+# # plot the sample
+# fig = plt.figure
+# plt.imshow(image, cmap='gray')
+# plt.show()
 # exit(1)
 
 
@@ -89,14 +89,14 @@ test_pairs, test_labels = utils_test.create_pairs(X_test, Y_test, num_classes=nu
 이미지 pair 보기
 """
 # Inspect training pairs
-utils_test.visualize(training_pairs[:-1], training_labels[:-1], to_show=12, num_col=4, main_title='Training pairs sample')
+# utils_test.visualize(training_pairs[:-1], training_labels[:-1], to_show=12, num_col=4, main_title='Training pairs sample')
 
 
 # # Inspect validation pairs
 # utils2.visualize(pairs_val[:-1], labels_val[:-1], to_show=12, num_col=4, 'validation pairs sample')
 
 # Inspect test pairs
-utils2.visualize(test_pairs[:-1], test_labels[:-1], to_show=12, num_col=4, main_title='Test pairs sample')
+# utils2.visualize(test_pairs[:-1], test_labels[:-1], to_show=12, num_col=4, main_title='Test pairs sample')
 
 '''
 
