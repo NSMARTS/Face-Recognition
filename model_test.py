@@ -3,7 +3,7 @@ import utils_test
 import numpy as np
 
 faces_dir = './kface/'
-# faces_dir = 'Kface\detect_data/'
+faces_dir = 'Kface\detect_data/'
 faces_dir = 'att_faces/'
 
 # Import Training and Testing Data
