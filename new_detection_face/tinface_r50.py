@@ -78,7 +78,7 @@ model = dict(
         dict(
             typename='FPN',
             in_channels=[256, 512, 1024, 2048],
-            out_channels=512,
+            out_channels=256,
             start_level=0,
             add_extra_convs='on_input',
             num_outs=6,
@@ -95,9 +95,9 @@ model = dict(
         typename='IoUAwareRetinaHead',
         num_classes=num_classes,
         num_anchors=num_anchors,
-        in_channels=512,
+        in_channels=256,
         stacked_convs=4,
-        feat_channels=512,
+        feat_channels=256,
         norm_cfg=dict(typename='BN'),
         use_sigmoid=use_sigmoid))
 
