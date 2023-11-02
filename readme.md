@@ -2,7 +2,8 @@
 model dir path change
 
 - data.h5 
-    -AI 모델링을 할때 데이터를 분산으로 처리해서 스펙이 좀 부족해도 커버할 수 있는 방법 [blog link](https://nuxlear.tistory.com/4)
+    - AI 모델링을 할때 데이터를 분산으로 처리해서 스펙이 좀 부족해도 커버할 수 있는 방법 [blog to link](https://nuxlear.tistory.com/4)
+    - When performing AI modeling, data is processed in a distributed manner to cover cases where the specifications may be insufficient. [blog to link](https://nuxlear.tistory.com/4)
 
 - face_recognition_system.py 
     - 얼굴 인식 테스트 코드 ( 사진하나 올려서 비교 )
