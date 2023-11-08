@@ -7,6 +7,7 @@ model dir path change
 
 - face_recognition_system.py 
     - 얼굴 인식 테스트 코드 ( 사진하나 올려서 비교 )
+    - Test code for facial recognition (upload a photo for comparison).
 
 - siamese_nn2_original.py 
     - 이걸 수정 중에 있다. -> 어느정도 수정 완료 브렌치 병합
