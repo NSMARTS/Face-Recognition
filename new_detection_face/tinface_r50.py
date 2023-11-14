@@ -184,3 +184,19 @@ hooks = [
     dict(typename='SnapshotHook', interval=1),
     dict(typename='LoggerHook', interval=100)
 ]
+
+# 5. work modes
+modes = ['train']#, 'val']
+max_epochs = 630
+
+# 6. checkpoint
+weights = dict(
+    filepath='torchvision://resnet50',
+    prefix='backbone')
+# optimizer = dict(filepath='workdir/retinanet_mini/epoch_3_optim.pth')
+# meta = dict(filepath='workdir/retinanet_mini/epoch_3_meta.pth')
+
+# 7. misc
+seed = 1234
+dist_params = dict(backend='nccl')
+log_level = 'INFO'
