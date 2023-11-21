@@ -14,9 +14,11 @@ model dir path change
     - 얼굴 인식 테스트 코드 ( 사진하나 올려서 비교 )
     - [ Test code for facial recognition (upload a photo for comparison). ]
 
+
 - siamese_nn2_original.py 
     - 이걸 수정 중에 있다. -> 어느정도 수정 완료 브렌치 병합
     - [ Currently being modified. -> Modifications are mostly complete, ready for branch merge. ]
+
 
 - face_detection.py 
     - 얼굴 탐지할 때 사용
