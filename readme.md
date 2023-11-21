@@ -15,6 +15,7 @@ model dir path change
 
 - face_detection.py 
     - 얼굴 탐지할 때 사용
+    - Used for face detection.
 
 - utils_test 
     - 데이터 페어 등 모델에 필요한 대부분의 함수가 여기 있음 -> 수정 후 브렌치 병합
