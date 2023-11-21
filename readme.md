@@ -19,3 +19,4 @@ model dir path change
 
 - utils_test 
     - 데이터 페어 등 모델에 필요한 대부분의 함수가 여기 있음 -> 수정 후 브렌치 병합
+    - Contains most of the functions needed for the model, such as data pairs. After modification, ready for branch merge.
