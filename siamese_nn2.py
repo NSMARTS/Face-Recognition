@@ -183,8 +183,9 @@ normal_layer = tf.keras.layers.BatchNormalization()(merge_layer)
 output_layer = layers.Dense(1, activation="sigmoid")(normal_layer)
 model = keras.Model(inputs=[input_1, input_2], outputs=output_layer)
 
-adam = optimizers.Adam(lr=0.00005)
-adam = optimizers.adam_v2(lr=0.00005)
+adam = optimizers.Adam(lr=0.0002)
+# adam = optimizers.adam_v2(lr=0.005) # 아래걸로 대체
+adam = tf.keras.optimizers.Adam(learning_rate=0.0002, beta_1=0.5)
 
 # opt = tf.keras.optimizers.Adam(learning_rate=0.0005, beta_1=0.5)
 opt = tf.keras.optimizers.Adam(learning_rate=0.0005, beta_1=0.5)
@@ -192,6 +193,11 @@ model.compile(loss=utils_test.loss(margin=margin), optimizer=opt, metrics=["accu
 
 # model.compile(loss=utils2.loss(margin=margin), optimizer='adam', metrics=["accuracy"])
 model.summary()
+
+dataset = tf.data.Dataset.from_tensor_slices(
+    ([training_pairs[:, 0], training_pairs[:, 1]], training_labels)).batch(16)
+
+# dataset = dataset.shuffle(len(training_pairs)).batch(batch_size)
 
 history = model.fit([training_pairs[:, 0], training_pairs[:, 1]], training_labels,
                     validation_split=0.2,
@@ -222,4 +228,4 @@ utils_test.plt_metric(history=history.history, metric="loss", title="Constrastiv
 
 
 # Save the model
-model.save('siamese_nn.h5')
+model.save('siamese_nn_230427.h5')
