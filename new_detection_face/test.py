@@ -11,6 +11,7 @@ from vedadet.engines import build_engine
 from vedacore.parallel import MMDataParallel
 
 
+
 def parse_args():
     parser = argparse.ArgumentParser(description='Train a detector')
     parser.add_argument('config', help='train config file path')
