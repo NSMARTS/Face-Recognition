@@ -8,7 +8,7 @@ from rembg import remove
 
 
 # print('imread')
-img_imread = cv2.imread('client_face1.png')
+img_imread = cv2.imread('img3.jpg')
 
 # output = Image.open('client_face1.png')
 output = remove(img_imread)

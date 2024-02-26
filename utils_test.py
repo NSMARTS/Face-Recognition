@@ -187,7 +187,7 @@ def create_pairs(X, Y, num_classes):
             cnt = 0
             for i in range(n+1, min_images+1):
                 cnt += 1
-                if(cnt == 13):
+                if(cnt == 5):
                     break
                 img1 = X[class_idx[c][random.randint(0, min_images)]]
                 img2 = X[class_idx[c][random.randint(0, min_images)]]

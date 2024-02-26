@@ -18,12 +18,12 @@ from keras.models import load_model
 
 
 ## 모델이 경로에 있는지 확인
-files = os.listdir()
-print('files : ', files)
-if 'siamese_nn.h5' not in files:
-    print("Error: trained Neural Network not found!")
-    print("Please check siamese_nn.py path")
-    sys.exit() 
+# files = os.listdir()
+# print('files : ', files)
+# if 'siamese_nn.h5' not in files:
+#     print("Error: trained Neural Network not found!")
+#     print("Please check siamese_nn.py path")
+#     sys.exit() 
 
 
 ## 테스트 셋을 만들 얼굴데이터가 있는 경로 설정
@@ -41,7 +41,7 @@ utils_test.visualize(test_pairs[:-1], test_labels[:-1], to_show=12, num_col=4, m
 
 ## 모델 가져오기
 from keras.models import load_model
-model = load_model('./siamese_nn_90.h5', custom_objects={'contrastive_loss': utils_test.loss(margin=1), 'euclidean_distance2': utils_test.euclidean_distance})
+model = load_model('./model/siamese_nn_156_0523_2.h5', custom_objects={'contrastive_loss': utils_test.loss(margin=1), 'euclidean_distance2': utils_test.euclidean_distance})
 
 if model:
     print('Model Load Success')
@@ -53,7 +53,7 @@ else:
 # 모델 정확도 계산 및 출력
 results = model.evaluate([test_pairs[:, 0], test_pairs[:, 1]], test_labels)
 print()
-print("시험 데이터의 손실율, 시험 데이터의 정답률:", results)
+print("트레이닝 데이터의 손실율, 트레이닝 데이터의 정답률:", results)
 
 '''
 정확도 산출 수식
