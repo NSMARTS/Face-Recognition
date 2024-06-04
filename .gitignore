@@ -3,6 +3,10 @@
 /face-data
 /kface
 /git.sh
+/arcface/Middle_Resolution
+/arcface/MR
+/arcface/kface
+/arcface/kface_val
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
