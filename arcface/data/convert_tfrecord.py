@@ -1,3 +1,5 @@
+# tfrecord 기본 코드
+
 from absl import app, flags, logging
 from absl.flags import FLAGS
 import os

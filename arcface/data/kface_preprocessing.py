@@ -17,9 +17,10 @@ def unzip():
     for z in zip_names:
         class_names.append(os.path.basename(z).split('.')[0])
 
-    lux = ["L1", "L3"]
-    emotion = ["E01", "E02", "E03"]
-    angle = ["C6", "C7", "C8", "C9"]
+    # Aihub 한국인 안면데이터 - 데이터 설명 참고
+    lux = ["L1", "L3"]  # 밝기
+    emotion = ["E01", "E02", "E03"] # 감정표현
+    angle = ["C6", "C7", "C8", "C9"]    # 보이는 각도
     img_names = []
     txt_names = []
 
