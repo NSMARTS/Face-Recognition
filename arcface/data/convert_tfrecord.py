@@ -1,18 +1,10 @@
 # tfrecord 기본 코드
 
-from absl import app, flags, logging
-from absl.flags import FLAGS
 import os
-import tqdm
-import glob
+from tqdm import tqdm
+from glob import glob
 import random
 import tensorflow as tf
-
-
-flags.DEFINE_string('dataset_path', './imgs',
-                    'path to dataset')
-flags.DEFINE_string('output_path', './ms1m_bin.tfrecord',
-                    'path to ouput tfrecord')
 
 
 def _bytes_feature(value):
@@ -41,36 +33,24 @@ def make_example(img_str, source_id, filename):
     return tf.train.Example(features=tf.train.Features(feature=feature))
 
 
-def main(_):
-    dataset_path = FLAGS.dataset_path
-
-    print(dataset_path)
-
-    if not os.path.isdir(dataset_path):
-        logging.info('Please define valid dataset path.')
-    else:
-        logging.info('Loading {}'.format(dataset_path))
-
+def main(dataset_path, output_path):
     samples = []
-    logging.info('Reading data list...')
-    for id_name in tqdm.tqdm(os.listdir(dataset_path)):
-        img_paths = glob.glob(os.path.join(dataset_path, id_name, '*.jpg'))
+    print("Reading data list...")
+    for id_name in tqdm(os.listdir(dataset_path)):
+        img_paths = glob(os.path.join(dataset_path, id_name, '*.jpg'))
         for img_path in img_paths:
             filename = os.path.join(id_name, os.path.basename(img_path))
             samples.append((img_path, id_name, filename))
     random.shuffle(samples)
 
-    logging.info('Writing tfrecord file...')
-    with tf.io.TFRecordWriter(FLAGS.output_path) as writer:
-        for img_path, id_name, filename in tqdm.tqdm(samples):
+    print("Writing tfrecord file...")
+    with tf.io.TFRecordWriter(output_path) as writer:
+        for img_path, id_name, filename in tqdm(samples):
             tf_example = make_example(img_str=open(img_path, 'rb').read(),
                                       source_id=int(id_name),
                                       filename=str.encode(filename))
             writer.write(tf_example.SerializeToString())
 
 
-if __name__ == '__main__':
-    try:
-        app.run(main)
-    except SystemExit:
-        pass
+if __name__ == "__main__":
+    main("kface", "kface_bin.tfrecord")
