@@ -7,6 +7,7 @@
 /arcface/data/MR
 /arcface/data/kface
 /arcface/data/kface_val
+/arcface/data/kface_bin.tfrecord
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
