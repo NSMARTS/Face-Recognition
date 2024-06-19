@@ -7,12 +7,16 @@ class BatchNormalization(tf.keras.layers.BatchNormalization):
     def call(self, x, training=False):
         if training is None:
             training = tf.constant(False)
+
+        # training이 True일 때만 self.trainable이 True인 경우에만 학습 모드로 설정
         training = tf.logical_and(training, self.trainable)
         return super().call(x, training)
     
 
 class ArcMarginPenaltyLogists(tf.keras.layers.Layer):
-
+    """
+    ArcFace의 손실 함수로 사용되는 ArcMarginPenaltyLogits 커스텀 레이어
+    """
     def __init__(self, num_classes, margin=0.5, logist_scale=64, **kwargs):
         super(ArcMarginPenaltyLogists, self).__init__(**kwargs)
         self.num_classes = num_classes
