@@ -1,5 +1,5 @@
 import collections
-import face_detection
+import face_detection_haar
 from keras.models import load_model
 import utils_test
 import cv2
@@ -40,7 +40,7 @@ while True:
     _, frame = video_capture.read()
 
     # Detect Faces
-    frame, face_img, face_coords = face_detection.detect_faces(
+    frame, face_img, face_coords = face_detection_haar.detect_faces(
         frame, draw_box=False)
 
     if face_img is not None:
