@@ -13,7 +13,7 @@
 /arcface/checkpoints
 /arcface/logs
 /arcface/configs
-
+/DNN/sample_human_img
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
