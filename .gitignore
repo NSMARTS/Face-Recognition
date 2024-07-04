@@ -14,7 +14,9 @@
 /arcface/logs
 /arcface/configs
 /DNN/sample_human_img
-
+/DNN/data/kface
+/DNN/checkpoints
+/DNN/logs
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
