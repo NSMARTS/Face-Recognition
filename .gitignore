@@ -17,6 +17,9 @@
 /DNN/data/kface
 /DNN/checkpoints
 /DNN/logs
+/tensorflow_arcface/checkpoints
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
