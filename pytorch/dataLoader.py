@@ -38,6 +38,6 @@ transform = transforms.Compose([
     transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
 ])
 
-# 데이터셋 및 데이터 로더 생성
-dataset = FaceDataset('path/to/face/dataset', transform=transform)
-dataloader = DataLoader(dataset, batch_size=32, shuffle=True, num_workers=4)
+# # 데이터셋 및 데이터 로더 생성
+# dataset = FaceDataset('path/to/face/dataset', transform=transform)
+# dataloader = DataLoader(dataset, batch_size=32, shuffle=True, num_workers=4)

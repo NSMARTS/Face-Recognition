@@ -18,7 +18,10 @@
 /DNN/checkpoints
 /DNN/logs
 /tensorflow_arcface/checkpoints
+/tensorflow_arcface/kface.tfrecord
+/tensorflow_arcface/kface_validation.tfrecord
 
+/pytorch/checkpoint
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
