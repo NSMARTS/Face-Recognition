@@ -39,5 +39,7 @@ transform = transforms.Compose([
 ])
 
 # # 데이터셋 및 데이터 로더 생성
-# dataset = FaceDataset('path/to/face/dataset', transform=transform)
-# dataloader = DataLoader(dataset, batch_size=32, shuffle=True, num_workers=4)
+dataset = FaceDataset('../kface', transform=transform)
+print(dataset)
+print(len(dataset))
+dataloader = DataLoader(dataset, batch_size=32, shuffle=True, num_workers=4)
