@@ -7,7 +7,7 @@ import numpy as np
 from tqdm import tqdm
 import os
 import random
-
+import csv
 
 # 모델 로드 (분류기 부분 제외)
 class FeatureExtractor(torch.nn.Module):
@@ -37,15 +37,21 @@ transform = transforms.Compose([
 ])
 
 def extract_feature(img_path, model, transform):
+    print('img_path : ',img_path)
     img = Image.open(img_path).convert('RGB')
+    print('convert img : ',img)
     img = transform(img).unsqueeze(0).to(device)
+    print('img shape : ',img.shape)
+
     with torch.no_grad():
         feature = model(img)
     
     # shape 확인 및 조정
     # print(f"Raw feature shape: {feature.shape}")
+    print('feature.shape : ',feature.shape)
     feature = feature.squeeze()  # 불필요한 차원 제거
-    
+    print('feature.shape squeeze',feature.shape)
+
     if feature.dim() == 1:
         feature = feature.unsqueeze(0)  # (2048,) -> (1, 2048)
     elif feature.dim() > 2:
@@ -55,7 +61,7 @@ def extract_feature(img_path, model, transform):
     
     # normalize 함수에 dim 매개변수 추가
     normalized_feature = F.normalize(feature, dim=1)
-    
+    print('normalized_feature : ', normalized_feature.shape)
     return normalized_feature.cpu().numpy()
 
 def compute_similarity(img1_path, img2_path, model, transform):
@@ -65,8 +71,13 @@ def compute_similarity(img1_path, img2_path, model, transform):
     # 벡터의 shape를 명시적으로 (1, -1)로 변경
     feature1 = feature1.reshape(1, -1)
     feature2 = feature2.reshape(1, -1)
+    print('feature1 reshape : ', feature1)
+    print('feature2 reshape : ', feature2)
+    # similarity = np.dot(feature1, feature2.T)
+    similarity = np.dot(feature1, feature2)
 
-    similarity = np.dot(feature1, feature2.T)
+    print('similarity : ', similarity)
+
     return similarity[0][0]  # 스칼라 값으로 변환
 
 def img_load(dir_path):
@@ -86,22 +97,19 @@ def random_pair(arr):
     # 짝을 지어 튜플로 만들기
     paired_list = []
 
-    # 같은 얼굴 라벨 먼저 하고
-    for i in tqdm(range(0, len(arr), 2)):
-        # print(i)
-        pair = (arr[i], arr[i + 1])
+    # # 같은 얼굴 라벨 먼저 하고
+    # for i in tqdm(range(0, len(arr), 2)):
+    #     # print(i)
+    #     pair = (arr[i], arr[i + 1])
 
-        pair1 = os.path.normpath(arr[i]).split(os.sep)
-        pair2 = os.path.normpath(arr[i+1]).split(os.sep)
+    #     pair1 = os.path.normpath(arr[i]).split(os.sep)
+    #     pair2 = os.path.normpath(arr[i+1]).split(os.sep)
+    #     print('앞 반복문',pair1[-2], pair2[-2])
+    #     label = 0 if pair1[-2] == pair2[-2] else 1
+    #     similarity = compute_similarity(arr[i], arr[i + 1], feature_extractor, transform)
+    #     paired_list.append((arr[i], arr[i + 1], label, similarity))
 
-        label = 0 if pair1[-2] == pair2[-2] else 1
-        similarity = compute_similarity(arr[i], arr[i + 1], feature_extractor, transform)
-        paired_list.append((arr[i], arr[i + 1], label, similarity))
-
-        if i == 13000:
-             arr = arr[13000:]
-             break
-            
+        
     # 섞은 다음
     random.shuffle(arr)
     
@@ -114,7 +122,7 @@ def random_pair(arr):
 
         pair1 = os.path.normpath(arr[i]).split(os.sep)
         pair2 = os.path.normpath(arr[i+1]).split(os.sep)
-
+        print('뒤 반복문',pair1[-2], pair2[-2])
         label = 0 if pair1[-2] == pair2[-2] else 1
         similarity = compute_similarity(arr[i], arr[i + 1], feature_extractor, transform)
         paired_list.append((arr[i], arr[i + 1], label, similarity))
@@ -122,26 +130,50 @@ def random_pair(arr):
 
     return paired_list
 
+# CSV 파일로 저장하는 함수
+def save_to_csv(filename, data):
+    with open(filename, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerows(data)
 
 # 유사도 계산 예시
-# img1_path = '../kface/0/0_20_20.jpg'
-# img2_path = '../kface/9/9_0_0.jpg'
+img1_path = '../kface_all/0/0_20_20.jpg'
+img2_path = '../kface_all/9/9_0_0.jpg'
 
-dir_path = '../kface'
-img = img_load(dir_path)
-pair = random_pair(img)
+result = compute_similarity(img1_path, img2_path, feature_extractor, transform)
+print('result : ', result)
 
-print('전체 페어 길이 : ', len(pair))
+# dir_path = '../kface'
+# img = img_load(dir_path)
+# pair = random_pair(img)
 
-label_0 = [tup for tup in pair if tup[2] == 0]
-print('페어에서 라벨이 0 인거 : ',len(label_0))
-label_0_similarity = [tup[3] for tup in label_0]
-average = sum(label_0_similarity) / len(label_0_similarity)
-print('페어에서 라벨이 0 인거 유사도 평균 : ',average)
+# print('전체 페어 길이 : ', len(pair))
+# save_to_csv('./test/all_img.csv',pair)
+
+# threshold = 0.89
+
+# yes = []
+# no = []
+# for idx,(img1, img2, label, score) in enumerate(pair):
+#     if (score > threshold and label == 0) or (score < threshold and label == 1):
+#         yes.append(1)
+#     elif (score < threshold and label == 0) or (score > threshold and label == 1):
+#         no.append(1)
+# print('임계값 맞은 수 : ', len(yes))
+# print('임계값 틀린 수 : ', len(no))
 
 
-label_1 = [tup for tup in pair if tup[2] == 1]
-print('페어에서 라벨이 1 인거 : ',len(label_1))
-label_1_similarity = [tup[3] for tup in label_1]
-average = sum(label_1_similarity) / len(label_1_similarity)
-print('페어에서 라벨이 1 인거 유사도 평균 : ',average)
+# label_0 = [tup for tup in pair if tup[2] == 0]
+# save_to_csv('./test/label_0.csv',label_0)
+# print('페어에서 라벨이 0 인거 : ',len(label_0))
+# label_0_similarity = [tup[3] for tup in label_0]
+# average = sum(label_0_similarity) / len(label_0_similarity)
+# print('페어에서 라벨이 0 인거 유사도 평균 : ',average)
+
+
+# label_1 = [tup for tup in pair if tup[2] == 1]
+# save_to_csv('./test/label_1.csv',label_1)
+# print('페어에서 라벨이 1 인거 : ',len(label_1))
+# label_1_similarity = [tup[3] for tup in label_1]
+# average = sum(label_1_similarity) / len(label_1_similarity)
+# print('페어에서 라벨이 1 인거 유사도 평균 : ',average)
