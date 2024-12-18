@@ -15,7 +15,7 @@ def main():
 
     print('[ transform ] initialize')
     transform = transforms.Compose([
-        transforms.Resize((124, 124)),
+        transforms.Resize((156, 156)),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
     ])
