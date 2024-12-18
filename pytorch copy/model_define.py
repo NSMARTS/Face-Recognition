@@ -58,3 +58,28 @@ class ArcMarginProduct(nn.Module):
         output = (one_hot * phi) + ((1.0 - one_hot) * cosine)
         output *= self.s
         return output
+    
+
+class ArcFaceResNet50_ver2(nn.Module):
+    def __init__(self, num_classes, emb_size=512, s=30.0, m=0.50):
+        super(ArcFaceResNet50, self).__init__()
+        self.num_classes = num_classes
+        self.emb_size = emb_size
+        self.s = s
+        self.m = m
+        
+        self.backbone = models.resnet50(pretrained=True)
+        self.backbone = nn.Sequential(*list(self.backbone.children())[:-1])
+        self.embedding = nn.Linear(2048, self.emb_size)
+        self.arc_margin_product = ArcMarginProduct(self.emb_size, self.num_classes, s=self.s, m=self.m)
+
+    def forward(self, x, labels=None):
+        x = self.backbone(x)
+        x = x.view(x.size(0), -1)
+        embedding = self.embedding(x)
+        
+        if self.training:
+            output = self.arc_margin_product(embedding, labels)
+            return output
+        else:
+            return F.normalize(embedding)
