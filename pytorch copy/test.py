@@ -34,7 +34,7 @@ feature_extractor.to(device)
 
 # 이미지 전처리
 transform = transforms.Compose([
-    transforms.Resize((112, 112)),
+    transforms.Resize((124, 124)),
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
 ])
