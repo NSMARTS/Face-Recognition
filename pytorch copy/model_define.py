@@ -70,7 +70,7 @@ class ArcFaceResNet50_ver2(nn.Module):
         
         self.backbone = models.resnet50(pretrained=True)
         self.backbone = nn.Sequential(*list(self.backbone.children())[:-1])
-        self.embedding = nn.Linear(2048, self.emb_size)
+        self.embedding = nn.Linear(4048, self.emb_size)
         self.arc_margin_product = ArcMarginProduct(self.emb_size, self.num_classes, s=self.s, m=self.m)
 
     def forward(self, x, labels=None):
