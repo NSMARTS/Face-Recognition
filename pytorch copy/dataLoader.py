@@ -4,6 +4,7 @@ from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
 from PIL import Image
 
+# new pillow resize
 class FaceDataset(Dataset):
     def __init__(self, root_dir, transform=None):
         self.root_dir = root_dir
