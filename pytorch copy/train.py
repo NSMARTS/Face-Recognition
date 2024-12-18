@@ -30,7 +30,7 @@ def main():
     print('[ model, optimizer ] initialize')
     model = ArcFaceResNet50(num_classes=len(dataset.classes)).to(device)
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=0.001)
+    optimizer = optim.Adam(model.parameters(), lr=0.0005)
     scheduler = StepLR(optimizer, step_size=20, gamma=0.1)
 
     num_epochs = 100
