@@ -271,7 +271,7 @@ def score_cal_one(pair):
 # print('result : ', result)
 ###############################################################
 
-threshold = 0.9
+threshold = 0.8
 dir_path = './kface_testSet'
 seedArr = [34,2,6,4,5]
 seed = 4
