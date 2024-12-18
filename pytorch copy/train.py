@@ -23,7 +23,7 @@ def main():
     # 데이터셋 및 데이터 로더 생성
     print('[ dataset, dataloader ] generation')
     dataset = FaceDataset('../kface', transform=transform)
-    dataloader = DataLoader(dataset, batch_size=64, shuffle=True, num_workers=0)
+    dataloader = DataLoader(dataset, batch_size=16, shuffle=True, num_workers=0)
     print(len(dataset.classes))
 
     # 모델, 손실 함수, 옵티마이저 초기화
