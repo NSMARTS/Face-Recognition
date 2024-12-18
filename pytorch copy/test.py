@@ -44,6 +44,9 @@ def extract_feature(img_path, model, transform):
     
     img = Image.open(img_path).convert('RGB')
 
+    # resize_img = cv2.resize(img, (300, 300), interpolation=cv2.INTER_AREA)
+    # resize_img = cv2.resize(img, (0, 0), fx=0.3, fy=0.7, interpolation=cv2.INTER_AREA)
+    # resize_img = cv2.resize(img, (300, 300), fx=0.3, fy=0.7, interpolation=cv2.INTER_AREA)
     # print('convert img : ',img)
     img = transform(img).unsqueeze(0).to(device)
     # print('img shape : ',img.shape)
