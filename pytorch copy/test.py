@@ -290,7 +290,7 @@ score_cal(pair)
 # score_cal_one(pair)
 
 
-save_to_csv('./test/all_img.csv',pair)
+# save_to_csv('./test/all_img.csv',pair)
 
 label_0 = [tup for tup in pair if tup[2] == 0]
 label_0_similarity = [tup[3] for tup in label_0]
@@ -307,7 +307,7 @@ print('라벨이 1 인거 페어 유사도 평균 : ',average)
 
 # show_images(pair)
 
-save_to_csv('./test/label_0.csv',label_0)
-save_to_csv('./test/label_1.csv',label_1)
+# save_to_csv('./test/label_0.csv',label_0)
+# save_to_csv('./test/label_1.csv',label_1)
 
 # test 0.9244
