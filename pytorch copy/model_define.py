@@ -61,7 +61,7 @@ class ArcMarginProduct(nn.Module):
     
 
 class ArcFaceResNet50_ver2(nn.Module):
-    def __init__(self, num_classes, emb_size=512, s=30.0, m=0.50):
+    def __init__(self, num_classes, emb_size=1024, s=30.0, m=0.50):
         super(ArcFaceResNet50, self).__init__()
         self.num_classes = num_classes
         self.emb_size = emb_size
