@@ -76,8 +76,8 @@ def compute_similarity(img1_path, img2_path, model, transform):
     # feature2 = feature2.reshape(1, -1)
     # print('feature1 reshape : ', feature1)
     # print('feature2 reshape : ', feature2)
-    similarity = np.dot(feature1, feature2.T)
-    # similarity = np.dot(feature1, feature2)
+    # similarity = np.dot(feature1, feature2.T)
+    similarity = np.dot(feature1, feature2)
 
     # print('similarity : ', similarity)
 
