@@ -52,8 +52,6 @@ def extract_feature(img_path, model, transform):
         feature = model(img)
     
     # shape 확인 및 조정
-    # print(f"Raw feature shape: {feature.shape}")
-    # print('feature.shape : ',feature.shape)
     feature = feature.squeeze()  # 불필요한 차원 제거
     # print('feature.shape squeeze',feature.shape)
 
