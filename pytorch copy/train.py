@@ -49,7 +49,7 @@ def main():
             optimizer.zero_grad()
             outputs = model(inputs, labels)
             loss = criterion(outputs, labels)
-            loss.backward()
+            loss.backward() # 역전파 계산
             optimizer.step()
             
             running_loss += loss.item()
