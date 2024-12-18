@@ -33,7 +33,7 @@ def main():
     optimizer = optim.Adam(model.parameters(), lr=0.001)
     scheduler = StepLR(optimizer, step_size=50, gamma=0.1)
 
-    num_epochs = 100
+    num_epochs = 50
 
     best_accuracy = 0 
     print('[ train start ]')
