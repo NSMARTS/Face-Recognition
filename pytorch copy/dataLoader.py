@@ -33,7 +33,7 @@ class FaceDataset(Dataset):
 
 # 데이터 변환 정의
 transform = transforms.Compose([
-    transforms.Resize((112, 112)),
+    transforms.Resize((124, 124)),
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
 ])
