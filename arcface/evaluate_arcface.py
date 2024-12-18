@@ -74,17 +74,17 @@ if __name__ == '__main__':
     #     )
     # arcface.load_weights(ckpt_path)
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--weights", type=str)
-    args = parser.parse_args()
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument("--weights", type=str)
+    # args = parser.parse_args()
 
     print('=============================')
-    print(args)
+    # print(args)
 
     arcface = ArcFaceModel(size=112, backbone_type='ResNet50', training=False)
-    ckpt_path = tf.train.latest_checkpoint(args.weights)
+    ckpt_path = tf.train.latest_checkpoint('checkpoints/arc_res50_kface_finetune-lr0.005-bs32-trainable2/')
+    print('ckpt_path : ', ckpt_path)
     arcface.load_weights(ckpt_path)
-
 
     data_path = "data/kface_val_npy"
 
