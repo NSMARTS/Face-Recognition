@@ -178,3 +178,6 @@ cython_debug/
 #.idea/
 pytorch/kface_testSet
 새 폴더/
+pytorch copy/kface_testSet
+pytorch copy/checkpoint
+pytorch copy/first_checkpoint
