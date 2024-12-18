@@ -310,4 +310,4 @@ print('라벨이 1 인거 페어 유사도 평균 : ',average)
 save_to_csv('./test/label_0.csv',label_0)
 save_to_csv('./test/label_1.csv',label_1)
 
-# test 0.93
+# test 0.9244
